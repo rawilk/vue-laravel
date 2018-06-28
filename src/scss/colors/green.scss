@@ -1,0 +1,16 @@
+/**
+ * LaraVue Green Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_light";
+
+$themecolor: #26c6da;
+$themecolor-dark: #028ee1;
+$topbar: #00acc1;
+$themecolor-alt: #26c6da;
+
+@include color-light($themecolor,  $themecolor-dark, $topbar, $themecolor-alt);

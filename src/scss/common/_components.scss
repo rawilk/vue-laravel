@@ -1,0 +1,90 @@
+.scale-up,
+.scale-up-left {
+	transition: all 0.3s ease;
+	transform: scale(0);
+	display: inline-block;
+}
+
+.scale-up {
+	transform-origin: right 0;
+}
+
+.scale-up-left {
+	transform-origin: left 0;
+}
+
+.show {
+	> .scale-up {
+		transform: scale(1);
+		transform-origin: right 0;
+	}
+
+	> .scale-up-left {
+		transform: scale(1);
+		transform-origin: left 0;
+	}
+}
+
+.page-titles .justify-content-end:last-child .d-flex {
+	margin-right: 10px;
+}
+
+.btn-circle.right-side-toggle {
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	padding: 25px;
+}
+
+.clear {
+	clear: both;
+}
+
+ol li {
+	margin: 5px 0;
+}
+
+.hide {
+	display: none;
+}
+
+.img-circle {
+	border-radius: 100%;
+}
+
+.radius {
+	border-radius: $radius;
+}
+
+.invisible {
+	visibility: hidden !important;
+}
+
+.hidden-xs-up {
+	display: none !important;
+}
+
+.hidden-xl-down {
+	display: none !important;
+}
+
+.v-affix {
+	width: 100%;
+	position: relative;
+}
+
+.affix {
+	position: fixed;
+	width: inherit;
+	max-width: inherit;
+}
+
+.affix-bottom {
+	position: relative;
+}
+
+.dropdown-header {
+	font-weight: 500;
+	padding-left: 1rem;
+	opacity: .85;
+}

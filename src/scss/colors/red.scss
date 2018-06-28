@@ -1,0 +1,16 @@
+/**
+ * LaraVue Red Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_light";
+
+$themecolor: #f62d51;
+$themecolor-dark: #028ee1;
+$topbar: #f62d51;
+$themecolor-alt: #f62d51;
+
+@include color-light($themecolor,  $themecolor-dark, $topbar, $themecolor-alt);

@@ -1,0 +1,63 @@
+/////////////////
+// Widgets app
+///////////////
+
+.css-bar:after {
+	z-index: 1;
+}
+
+.css-bar > i {
+	z-index: 10;
+}
+
+/////////////////
+// Single column
+///////////////
+
+.single-column {
+	.left-sidebar {
+		display: none;
+	}
+
+	.page-wrapper {
+		margin-left: 0;
+	}
+}
+
+.fix-width {
+	width: 100%;
+	max-width: 1170px;
+	margin: 0 auto;
+}
+
+/////////////////
+// Button
+///////////////
+
+.button-group {
+	.btn {
+		margin-bottom: 5px;
+		margin-right: 5px;
+	}
+}
+
+.no-button-group {
+	.btn {
+		margin-bottom: 5px;
+		margin-right: 0;
+	}
+}
+
+.btn {
+	.text-active {
+		display: none;
+	}
+	
+	&.active .text-active {
+		display: inline-block;
+	}
+	
+	&.active .text {
+		display: none;
+	}
+}

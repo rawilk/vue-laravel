@@ -1,0 +1,16 @@
+/**
+ * LaraVue Bootstrap Vue Admin Template
+ * @version 1.0
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+// Import common styles
+@import "../common/common";
+
+// Backend styles
+@import "app";
+@import "pages";
+@import "sidebar";
+
+@import "media_queries";

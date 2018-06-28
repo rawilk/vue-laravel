@@ -1,0 +1,16 @@
+/**
+ * LaraVue Megna Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_light";
+
+$themecolor: #01c0c8;
+$themecolor-dark: #028ee1;
+$topbar: #00897b;
+$themecolor-alt: #00897b;
+
+@include color-light($themecolor,  $themecolor-dark, $topbar, $themecolor-alt);

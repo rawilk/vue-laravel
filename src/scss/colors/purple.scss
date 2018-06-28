@@ -1,0 +1,16 @@
+/**
+ * LaraVue Purple Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_light";
+
+$themecolor: #7460ee;
+$themecolor-dark: #028ee1;
+$topbar: #7460ee;
+$themecolor-alt: #7460ee;
+
+@include color-light($themecolor,  $themecolor-dark, $topbar, $themecolor-alt);

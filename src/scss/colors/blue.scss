@@ -1,0 +1,16 @@
+/**
+ * LaraVue Blue Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_light";
+
+$themecolor: #1e88e5;
+$themecolor-dark: #028ee1;
+$topbar: #1e88e5;
+$themecolor-alt: #26c6da;
+
+@include color-light($themecolor,  $themecolor-dark, $topbar, $themecolor-alt);

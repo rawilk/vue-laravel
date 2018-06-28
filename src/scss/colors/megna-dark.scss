@@ -1,0 +1,38 @@
+/**
+ * LaraVue Megna Dark Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_dark";
+
+$themecolor: #01c0c8;
+$themecolor-dark: #028ee1;
+$topbar: #00897b;
+$themecolor-alt: #00897b;
+$sidebar:#272c33;
+$sidebar-text: #798699;
+$sidebar-icons: #798699;
+$sidebar-dark: #181c22;
+
+@include color-dark($topbar, $themecolor, $sidebar, $sidebar-dark, $sidebar-text, $themecolor-alt, $sidebar-icons, $is-default: 0);
+
+.logo-center .topbar {
+	.navbar-header {
+		background: transparent;
+		box-shadow: none;
+	}
+
+	.top-navbar .navbar-header .navbar-brand {
+		.dark-logo {
+			display: none;
+		}
+
+		.light-logo {
+			display: inline-block;
+			color: rgba(255, 255, 255, 0.8);
+		}
+	}
+}

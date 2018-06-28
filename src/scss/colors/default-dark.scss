@@ -1,0 +1,20 @@
+/**
+ * LaraVue Default Dark Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_dark";
+
+$themecolor: #009efb;
+$themecolor-dark: #028ee1;
+$topbar: #fff;
+$sidebar:#272c33;
+$sidebar-text: #798699;
+$sidebar-icons: #798699;
+$sidebar-dark: #181c22;
+$themecolor-alt: #26c6da;
+
+@include color-dark($topbar, $themecolor, $sidebar, $sidebar-dark, $sidebar-text, $themecolor-alt, $sidebar-icons, $is-default: 1);

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Test App Page</title>
+		<link rel="stylesheet" href="../dist/css/lara-vue-vendor.css">
+		<link rel="stylesheet" href="//cdn.materialdesignicons.com/2.3.54/css/materialdesignicons.min.css">
+		<link rel="stylesheet" href="../dist/css/backend-lara-vue.css">
+		<link rel="stylesheet" href="../dist/css/colors/blue.css">
+	</head>
+	<body>
+		<div id="app">
+			<backend-app>
+				<backend-header slot="header" :fixed="headerFixed">
+					<template slot="logoText">LaraVue</template>
+				</backend-header>
+
+				<backend-sidebar slot="sidebar" :nav-items="navItems">
+
+				</backend-sidebar>
+
+				<div class="mt-20">
+					<p @contextmenu.prevent="$refs.menu.open($event, 'foo')">
+						Right click on me
+					</p>
+				</div>
+
+				<vue-context ref="menu">
+					<template slot-scope="child">
+						<ul>
+							<li @click="onClick(child.data)">Option 1</li>
+							<li>Option 2</li>
+						</ul>
+					</template>
+				</vue-context>
+
+			</backend-app>
+		</div>
+
+		<script src="../dist/js/tests/app.js"></script>
+	</body>
+</html>

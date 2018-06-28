@@ -1,0 +1,16 @@
+/**
+ * LaraVue Default Color Scheme
+ * @author: Randall Wilk
+ * Copyright (c) 2018 Randall Wilk
+ * @license MIT
+ */
+
+@import "../common/variables";
+@import "mixins/color_light";
+
+$themecolor: #009efb;
+$themecolor-dark: #028ee1;
+$topbar: #455a64;
+$themecolor-alt: #26c6da;
+
+@include color-light($themecolor,  $themecolor-dark, $topbar, $themecolor-alt);
