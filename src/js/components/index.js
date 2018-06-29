@@ -12,6 +12,7 @@ import Embed from './embed';
 import Form from './form';
 import FormCheckbox from './form-checkbox';
 import FormFile from './form-file';
+import FormGroup from './form-group';
 import FormInput from './form-input';
 import FormRadio from './form-radio';
 import FormTextarea from './form-textarea';
@@ -52,6 +53,7 @@ export {
 	Form,
 	FormCheckbox,
 	FormFile,
+	FormGroup,
 	FormInput,
 	FormRadio,
 	FormTextarea,
