@@ -1,10 +1,14 @@
-import { deleteRequest, getRequest, patchRequest, postRequest, putRequest } from '../../../utils/ajax';
+import Ajax from '../../../utils/class/ajax';
 
 /**
  * Global ajax mixin available to every component in the Vue instance.
  */
 
 export default {
+    created () {
+        this.ajax = new Ajax();
+    },
+
 	methods: {
 		/**
 		 * Submit a `DELETE` request to the given endpoint.
@@ -15,7 +19,7 @@ export default {
 		 * @returns {Promise}
 		 */
 	    deleteRequest (endpoint, payload = {}, config = {}) {
-	        return deleteRequest(endpoint, payload, config);
+	        return this.ajax.deleteRequest(endpoint, payload, config);
 	    },
 
 		/**
@@ -27,7 +31,7 @@ export default {
 		 * @returns {Promise}
 		 */
 		getRequest (endpoint, payload = {}, config = {}) {
-		    return getRequest(endpoint, payload, config);
+		    return this.ajax.get(endpoint, payload, config);
 		},
 
 		/**
@@ -39,7 +43,7 @@ export default {
 		 * @returns {Promise}
 		 */
 		patchRequest (endpoint, payload = {}, config = {}) {
-		    return patchRequest(endpoint, payload, config);
+		    return this.ajax.patch(endpoint, payload, config);
 		},
 
 		/**
@@ -51,7 +55,7 @@ export default {
 		 * @returns {Promise}
 		 */
 		postRequest (endpoint, payload = {}, config = {}) {
-		    return postRequest(endpoint, payload, config);
+		    return this.ajax.post(endpoint, payload, config);
 		},
 
 		/**
@@ -63,7 +67,7 @@ export default {
 		 * @returns {Promise}
 		 */
 		putRequest (endpoint, payload = {}, config = {}) {
-		    return putRequest(endpoint, payload, config);
-		},
-	},
+		    return this.ajax.put(endpoint, payload, config);
+		}
+	}
 };
