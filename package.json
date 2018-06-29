@@ -31,10 +31,13 @@
     "@mdi/font": "^2.3.54",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.0",
+    "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "lodash.startcase": "^4.4.0",
     "popper.js": "^1.14.3",
+    "qs": "^6.5.2",
+    "recursive-iterator": "^3.3.0",
     "vue": "^2.5.16",
     "vue-context": "^3.0.1",
     "vue-functional-data-merge": "^2.0.6"
