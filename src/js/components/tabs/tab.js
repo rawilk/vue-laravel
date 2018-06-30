@@ -8,13 +8,33 @@ export default {
 			type: Boolean,
 			default: false
 		},
-		tag: {
-			type: String,
-			default: 'div'
-		},
 		buttonId: {
 			type: String,
 			default: ''
+		},
+		disabled: {
+			type: Boolean,
+			default: false
+		},
+		headHtml: {
+			type: String,
+			default: null
+		},
+		href: {
+			type: String,
+			default: '#'
+		},
+		id: {
+			type: String,
+			default: null
+		},
+		noBody: {
+			type: Boolean,
+			default: false
+		},
+		tag: {
+			type: String,
+			default: 'div'
 		},
 		title: {
 			type: String,
@@ -30,23 +50,6 @@ export default {
 			type: [String, Array, Object],
 			default: null
 		},
-		headHtml: {
-			// Is this actually ever used?
-			type: String,
-			default: null
-		},
-		disabled: {
-			type: Boolean,
-			default: false
-		},
-		noBody: {
-			type: Boolean,
-			default: false
-		},
-		href: {
-			type: String,
-			default: '#'
-		}
 	},
 
 	computed: {

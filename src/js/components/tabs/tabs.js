@@ -1,6 +1,7 @@
 import KeyCodes from '../../utils/keyCodes';
 import observeDom from '../../utils/observe-dom';
 import idMixin from '../../mixins/id';
+import { warn } from '../../utils';
 
 // Helper component
 const bTabButtonHelper = {
@@ -94,6 +95,14 @@ export default {
 			type: Boolean,
 			default: false
 		},
+		custom: {
+			type: Boolean,
+			default: true
+		},
+		justifyContentEnd: {
+			type: Boolean,
+			default: false
+		},
 		small: {
 			type: Boolean,
 			default: false
@@ -174,7 +183,8 @@ export default {
 	data () {
 		return {
 			currentTab: this.value,
-			tabs: []
+			tabs: [],
+			valueIsString: false
 		};
 	},
 
@@ -188,12 +198,12 @@ export default {
 				props: {
 					content: tab.$slots.title || tab.title,
 					href: tab.href,
-					id: tab.controlledBy || this.safeId(`_BV_tab_${index + 1}_`),
+					id: tab.controlledBy || this.safeId(`_Lara_tab_${index + 1}_`),
 					active: tab.localActive,
 					disabled: tab.disabled,
 					setSize: tabs.length,
 					posInSet: index + 1,
-					controls: this.safeId('_BV_tab_container_'),
+					controls: this.safeId('_Lara_tab_container_'),
 					linkClass: tab.titleLinkClass,
 					itemClass: tab.titleItemClass,
 					noKeyNav: this.noKeyNav
@@ -214,12 +224,13 @@ export default {
 					'nav',
 					{
 						[`nav-${this.navStyle}`]: ! this.noNavStyle,
-						[`card-header-${this.navStyle}`]: this.card && !this.vertical,
+						[`card-header-${this.navStyle}`]: this.card && ! this.vertical,
 						'card-header': this.card && this.vertical,
 						'h-100': this.card && this.vertical,
 						'flex-column': this.vertical,
 						'border-bottom-0': this.vertical,
 						'rounded-0': this.vertical,
+						'justify-content-end': this.justifyContentEnd,
 						small: this.small
 					},
 					this.navClass
@@ -241,7 +252,8 @@ export default {
 					{
 						'card-header': this.card && ! this.vertical && ! (this.end || this.bottom),
 						'card-footer': this.card && ! this.vertical && (this.end || this.bottom),
-						'col-auto': this.vertical
+						'col-auto': this.vertical,
+						'custom-tab': this.custom && ! this.pills,
 					},
 					this.navWrapperClass
 				]
@@ -277,7 +289,7 @@ export default {
 			{
 				class: [
 					'tabs',
-					{ row: this.vertical, 'no-gutters': this.vertical && this.card }
+					{ row: this.vertical, 'no-gutters': this.vertical && this.card, 'tabs-vertical': this.vertical }
 				],
 				attrs: { id: this.safeId() }
 			},
@@ -287,6 +299,12 @@ export default {
 				this.end || this.bottom ? h(false) : content
 			]
 		);
+	},
+
+	created () {
+	    if (typeof this.value === 'string') {
+	    	this.valueIsString = true;
+	    }
 	},
 
 	mounted () {
@@ -301,9 +319,21 @@ export default {
 	methods: {
 		/**
 		 * Util: Return the sign of a number (as -1, 0, or 1)
+		 *
+		 * @returns {number}
 		 */
 		sign (x) {
 			return x === 0 ? 0 : x > 0 ? 1 : -1;
+		},
+
+		/**
+		 * Find the index of the given tab.
+		 *
+		 * @param {string} tabId
+		 * @returns {number}
+		 */
+		findTabIndex (tabId) {
+		    return this.tabs.findIndex(tab => tab.id === tabId);
 		},
 
 		/**
@@ -362,9 +392,23 @@ export default {
 		 * Index is the tab we want to activate. Direction is the direction we are moving
 		 * so if the tab we requested is disabled, we can skip over it.
 		 * Force is used by updateTabs to ensure we have cleared any previous active tabs.
+		 *
+		 * @param {number|string} index
+		 * @param {boolean} force
+		 * @param {number} direction
 		 */
 		setTab (index, force, direction) {
 			direction = this.sign(direction || 0);
+
+			if (typeof index === 'string') {
+				const id = index;
+				index = this.findTabIndex(id);
+
+				if (index < 0) {
+					return warn(`Unable to locate tab with id: ${id}`);
+				}
+			}
+
 			index = index || 0;
 
 			// Prevent setting same tab and infinite loops!
@@ -419,16 +463,22 @@ export default {
 			// Find *last* active non-disabled tab in current tabs
 			// We trust tab state over currentTab
 			this.tabs.forEach((tab, index) => {
-				if (tab.localActive && !tab.disabled) {
+				if (tab.localActive && ! tab.disabled) {
 					tabIndex = index;
 				}
 			});
+
+			if (tabIndex === null && this.valueIsString) {
+				const index = this.findTabIndex(this.value);
+				tabIndex = index > -1 ? index : 0;
+			}
 
 			// Else try setting to currentTab
 			if (tabIndex === null) {
 				if (this.currentTab >= this.tabs.length) {
 					// Handle last tab being removed
 					this.setTab(this.tabs.length - 1, true, -1);
+
 					return;
 				} else if (this.tabs[this.currentTab] && ! this.tabs[this.currentTab].disabled) {
 					tabIndex = this.currentTab;
@@ -454,8 +504,15 @@ export default {
 				return;
 			}
 
+			let valueToEmit = value;
+
+			if (this.valueIsString) {
+				const id = this.tabs[value].id;
+				valueToEmit = id ? id : '';
+			}
+
 			this.$root.$emit('changed::tab', this, value, this.tabs[value]);
-			this.$emit('input', value);
+			this.$emit('input', valueToEmit);
 			this.tabs[value].$emit('click');
 		},
 
@@ -465,7 +522,17 @@ export default {
 			}
 
 			if (typeof oldValue !== 'number') {
-				oldValue = 0;
+				if (typeof oldValue === 'string') {
+					const index = this.findTabIndex(oldValue);
+					oldValue = index < 0 ? 0 : index;
+				} else {
+					oldValue = 0;
+				}
+			}
+
+			if (typeof value === 'string') {
+				const index = this.findTabIndex(value);
+				value = index < 0 ? 0 : index;
 			}
 
 			// Moving left or right?
