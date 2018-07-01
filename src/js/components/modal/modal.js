@@ -140,7 +140,7 @@ export default {
 		},
 		hideFooter: {
 			type: Boolean,
-			default: false
+			default: true
 		},
 		hideHeaderClose: {
 			type: Boolean,
@@ -224,8 +224,8 @@ export default {
 			return [
 				'modal-body',
 				{
-					[`bg-${this.bodyBgVariant}`]: Boolean(this.bodyBgVariant),
-					[`text-${this.bodyTextVariant}`]: Boolean(this.bodyTextVariant)
+					[`bg-${this.bodyBgVariant}`]: !! this.bodyBgVariant,
+					[`text-${this.bodyTextVariant}`]: !! this.bodyTextVariant
 				},
 				this.bodyClass
 			];
@@ -240,7 +240,7 @@ export default {
 			return [
 				'modal-dialog',
 				{
-					[`modal-${this.size}`]: Boolean(this.size),
+					[`modal-${this.size}`]: !! this.size,
 					'modal-dialog-centered': this.centered
 				}
 			];
@@ -255,11 +255,9 @@ export default {
 			return [
 				'modal-footer',
 				{
-					[`bg-${this.footerBgVariant}`]: Boolean(this.footerBgVariant),
-					[`text-${this.footerTextVariant}`]: Boolean(this.footerTextVariant),
-					[`border-${this.footerBorderVariant}`]: Boolean(
-						this.footerBorderVariant
-					)
+					[`bg-${this.footerBgVariant}`]: !! this.footerBgVariant,
+					[`text-${this.footerTextVariant}`]: !! this.footerTextVariant,
+					[`border-${this.footerBorderVariant}`]: !! this.footerBorderVariant
 				},
 				this.footerClass
 			];
@@ -274,11 +272,9 @@ export default {
 			return [
 				'modal-header',
 				{
-					[`bg-${this.headerBgVariant}`]: Boolean(this.headerBgVariant),
-					[`text-${this.headerTextVariant}`]: Boolean(this.headerTextVariant),
-					[`border-${this.headerBorderVariant}`]: Boolean(
-						this.headerBorderVariant
-					)
+					[`bg-${this.headerBgVariant}`]: !! this.headerBgVariant,
+					[`text-${this.headerTextVariant}`]: !! this.headerTextVariant,
+					[`border-${this.headerBorderVariant}`]: !! this.headerBorderVariant
 				},
 				this.headerClass
 			];
@@ -317,13 +313,15 @@ export default {
 
 	render (h) {
 		const $slots = this.$slots;
+
 		// Modal Header
 		let header = h(false);
-		if (!this.hideHeader) {
+		if (! this.hideHeader) {
 			let modalHeader = $slots['modal-header'];
-			if (!modalHeader) {
+			if (! modalHeader) {
 				let closeButton = h(false);
-				if (!this.hideHeaderClose) {
+
+				if (! this.hideHeaderClose) {
 					closeButton = h(
 						'b-btn-close',
 						{
@@ -333,7 +331,7 @@ export default {
 								textVariant: this.headerTextVariant
 							},
 							on: {
-								click: evt => {
+								click: event => {
 									this.hide('header-close');
 								}
 							}
@@ -341,6 +339,7 @@ export default {
 						[$slots['modal-header-close']]
 					);
 				}
+
 				modalHeader = [
 					h(this.titleTag, { class: ['modal-title'] }, [
 						$slots['modal-title'] || this.title
@@ -348,33 +347,38 @@ export default {
 					closeButton
 				];
 			}
+
 			header = h(
 				'header',
 				{
 					ref: 'header',
 					class: this.headerClasses,
-					attrs: { id: this.safeId('__BV_modal_header_') }
+					attrs: { id: this.safeId('__Lara_modal_header_') }
 				},
 				[modalHeader]
 			);
 		}
+
 		// Modal Body
 		const body = h(
 			'div',
 			{
 				ref: 'body',
 				class: this.bodyClasses,
-				attrs: { id: this.safeId('__BV_modal_body_') }
+				attrs: { id: this.safeId('__Lara_modal_body_') }
 			},
 			[$slots.default]
 		);
+
 		// Modal Footer
 		let footer = h(false);
-		if (!this.hideFooter) {
+		if (! this.hideFooter) {
 			let modalFooter = $slots['modal-footer'];
-			if (!modalFooter) {
+
+			if (! modalFooter) {
 				let cancelButton = h(false);
-				if (!this.okOnly) {
+
+				if (! this.okOnly) {
 					cancelButton = h(
 						'b-btn',
 						{
@@ -384,7 +388,7 @@ export default {
 								disabled: this.cancelDisabled || this.busy || this.is_transitioning
 							},
 							on: {
-								click: evt => {
+								click: event => {
 									this.hide('cancel');
 								}
 							}
@@ -392,6 +396,7 @@ export default {
 						[$slots['modal-cancel'] || this.cancelTitle]
 					);
 				}
+
 				const okButton = h(
 					'b-btn',
 					{
@@ -401,25 +406,28 @@ export default {
 							disabled: this.okDisabled || this.busy || this.is_transitioning
 						},
 						on: {
-							click: evt => {
+							click: event => {
 								this.hide('ok');
 							}
 						}
 					},
 					[$slots['modal-ok'] || this.okTitle]
 				);
+
 				modalFooter = [cancelButton, okButton];
 			}
+
 			footer = h(
 				'footer',
 				{
 					ref: 'footer',
 					class: this.footerClasses,
-					attrs: { id: this.safeId('__BV_modal_footer_') }
+					attrs: { id: this.safeId('__Lara_modal_footer_') }
 				},
 				[modalFooter]
 			);
 		}
+
 		// Assemble Modal Content
 		const modalContent = h(
 			'div',
@@ -431,22 +439,23 @@ export default {
 					role: 'document',
 					'aria-labelledby': this.hideHeader
 						? null
-						: this.safeId('__BV_modal_header_'),
-					'aria-describedby': this.safeId('__BV_modal_body_')
+						: this.safeId('__Lara_modal_header_'),
+					'aria-describedby': this.safeId('__Lara_modal_body_')
 				},
 				on: {
 					focusout: this.onFocusout,
-					click: evt => {
-						evt.stopPropagation();
-						// https://github.com/bootstrap-vue/bootstrap-vue/issues/1528
-						this.$root.$emit('bv::dropdown::shown');
+					click: event => {
+						event.stopPropagation();
+						this.$root.$emit('lara::dropdown::shown');
 					}
 				}
 			},
 			[header, body, footer]
 		);
+
 		// Modal Dialog wrapper
 		const modalDialog = h('div', { class: this.dialogClasses }, [modalContent]);
+
 		// Modal
 		let modal = h(
 			'div',
@@ -473,6 +482,7 @@ export default {
 			},
 			[modalDialog]
 		);
+
 		// Wrap modal in transition
 		modal = h(
 			'transition',
@@ -496,23 +506,26 @@ export default {
 			},
 			[modal]
 		);
+
 		// Modal Backdrop
 		let backdrop = h(false);
-		if (!this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
+		if (! this.hideBackdrop && (this.is_visible || this.is_transitioning)) {
 			backdrop = h('div', {
 				class: this.backdropClasses,
-				attrs: { id: this.safeId('__BV_modal_backdrop_') }
+				attrs: { id: this.safeId('__Lara_modal_backdrop_') }
 			});
 		}
+
 		// Assemble modal and backdrop
 		let outer = h(false);
-		if (!this.is_hidden) {
-			outer = h('div', { attrs: { id: this.safeId('__BV_modal_outer_') } }, [
+		if (! this.is_hidden) {
+			outer = h('div', { attrs: { id: this.safeId('__Lara_modal_outer_') } }, [
 				modal,
 				backdrop
 			]);
 		}
-		// Wrap in DIV to maintain thi.$el reference for hide/show method aceess
+
+		// Wrap in a div to maintain this.$el reference for hide/show method access
 		return h('div', {}, [outer]);
 	},
 
