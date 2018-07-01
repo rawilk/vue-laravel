@@ -11,17 +11,17 @@ delete linkProps.to.default;
 
 export const props = assign(
 	{
+        action: {
+            type: Boolean,
+            default: null
+        },
+        button: {
+            type: Boolean,
+            default: null
+        },
 		tag: {
 			type: String,
 			default: 'div'
-		},
-		action: {
-			type: Boolean,
-			default: null
-		},
-		button: {
-			type: Boolean,
-			default: null
 		},
 		variant: {
 			type: String,
@@ -39,7 +39,8 @@ export default {
 	render (h, { props, data, children }) {
 		const tag = props.button
 			? 'button'
-			: ! props.href && !props.to ? props.tag : Link;
+			: ! props.href && ! props.to ? props.tag : Link;
+
 		const isAction = Boolean(
 			props.href ||
 			props.to ||
@@ -51,7 +52,7 @@ export default {
 		const componentData = {
 			staticClass: 'list-group-item',
 			class: {
-				[`list-group-item-${props.variant}`]: Boolean(props.variant),
+				[`list-group-item-${props.variant}`]: !! props.variant,
 				'list-group-item-action': isAction,
 				active: props.active,
 				disabled: props.disabled

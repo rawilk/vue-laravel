@@ -1,13 +1,13 @@
 import { mergeData } from 'vue-functional-data-merge';
 
 export const props = {
+    flush: {
+        type: Boolean,
+        default: false
+    },
 	tag: {
 		type: String,
 		default: 'div'
-	},
-	flush: {
-		type: Boolean,
-		default: false
 	}
 };
 
