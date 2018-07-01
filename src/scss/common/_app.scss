@@ -732,10 +732,9 @@ $badge-colors: (
 	color: $bodytext;
 
 	&:hover,
-	&.active,
-	&:focus {
+	&.active {
 		box-shadow: $default-shadow-hover;
-		color: $white !important;
+		color: $white;
 	}
 }
 
@@ -754,7 +753,7 @@ $badge-colors: (
 
 	&.active,
 	&:focus {
-		background: $primary-dark;
+		background: $primary;
 		box-shadow: $primary-shadow-hover;
 	}
 }
@@ -1056,8 +1055,8 @@ $badge-colors: (
 }
 
 $btn-bg-colors: (
-	primary: $primary-dark, success: $success-dark, info: $info-dark, warning: $warning-dark,
-	danger: $danger-dark
+	primary: $primary, success: $success, info: $info, warning: $warning,
+	danger: $danger
 );
 
 @each $key, $val in $btn-bg-colors {

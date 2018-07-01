@@ -88,3 +88,17 @@ ol li {
 	padding-left: 1rem;
 	opacity: .85;
 }
+
+.modal-header {
+	background-color: $themecolor;
+	color: $white;
+}
+
+.modal-title,
+.modal-header .close {
+	color: inherit;
+}
+
+.modal-footer {
+	border-top: 0;
+}
