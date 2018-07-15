@@ -5,6 +5,7 @@ const inProduction = mix.inProduction();
 
 mix
 	.setPublicPath('dist')
+    .setResourceRoot('../')
 
 	// scripts
 	.js('src/js/index.js', 'js/' + name + '.js')

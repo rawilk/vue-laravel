@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<title>Test App Page</title>
 		<link rel="stylesheet" href="../dist/css/lara-vue-vendor.css">
-		<link rel="stylesheet" href="//cdn.materialdesignicons.com/2.3.54/css/materialdesignicons.min.css">
 		<link rel="stylesheet" href="../dist/css/backend-lara-vue.css">
 		<link rel="stylesheet" href="../dist/css/colors/blue.css">
 	</head>
@@ -19,24 +18,15 @@
 
 				</backend-sidebar>
 
-				<div class="mt-20">
-					<p @contextmenu.prevent="$refs.menu.open($event, 'foo')">
-						Right click on me
-					</p>
-				</div>
-
-				<vue-context ref="menu">
-					<template slot-scope="child">
-						<ul>
-							<li @click="onClick(child.data)">Option 1</li>
-							<li>Option 2</li>
-						</ul>
-					</template>
-				</vue-context>
+				<!-- content -->
+				<b-card class="mt-20">
+                    <b-select v-model="selected" :options="options" class="mb-3" multiple></b-select>
+                    <div>Selected: <strong>{{ selected }}</strong></div>
+				</b-card>
 
 			</backend-app>
 		</div>
 
-		<script src="/testing/js/dist/app.js"></script>
+		<script src="js/dist/app.js"></script>
 	</body>
 </html>
