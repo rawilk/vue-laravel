@@ -15,6 +15,7 @@ import FormFile from './form-file';
 import FormGroup from './form-group';
 import FormInput from './form-input';
 import FormRadio from './form-radio';
+import FormSelect from './form-select';
 import FormTextarea from './form-textarea';
 import Image from './image';
 import InputGroup from './input-group';
@@ -56,6 +57,7 @@ export {
 	FormGroup,
 	FormInput,
 	FormRadio,
+    FormSelect,
 	FormTextarea,
 	Image,
 	InputGroup,

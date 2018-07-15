@@ -33,23 +33,17 @@ new Vue({
 			}
 		],
 		headerFixed: true,
-
-		fields: ['last_name', 'first_name', 'age'],
-		items: [
-			{ isActive: true, age: 40, first_name: 'John', last_name: 'Smith' },
-			{ isActive: false, age: 21, first_name: 'Jane', last_name: 'Doe' },
-			{ isActive: false, age: 25, first_name: 'Geneva', last_name: 'Wilson' },
-			{ isActive: true, age: 40, first_name: 'Jami', last_name: 'Carney', },
-		],
+        selected: 'b',
+        options: [
+            { value: null, text: 'Please select an option' },
+            { value: 'a', text: 'This is First option' },
+            { value: 'b', text: 'Selected Option' },
+            { value: {'C': '3PO'}, text: 'This is an option with object value' },
+            { value: 'd', text: 'This one is disabled', disabled: true }
+        ],
 	},
 
 	methods: {
-	    test (item) {
-	        alert(item.first_name);
-	    },
 
-		onClick (data) {
-		    console.log(data);
-		},
 	},
 });
