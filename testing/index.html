@@ -15,15 +15,19 @@
 				</backend-header>
 
 				<backend-sidebar slot="sidebar" :nav-items="navItems">
-
 				</backend-sidebar>
 
 				<!-- content -->
 				<b-card class="mt-20">
-                    <b-select v-model="selected" :options="options" class="mb-3" multiple></b-select>
+                    <!--<b-select v-model="selected" :options="options" class="mb-3" multiple></b-select>-->
                     <div>Selected: <strong>{{ selected }}</strong></div>
 				</b-card>
 
+                <div style="height:2000px">&nbsp;</div>
+
+                <backend-footer slot="footer">
+                    &copy; 2018 Randall Wilk
+                </backend-footer>
 			</backend-app>
 		</div>
 

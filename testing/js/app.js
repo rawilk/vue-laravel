@@ -3,14 +3,8 @@ import LaraVue from  '../../src/js/index';
 
 Vue.use(LaraVue);
 
-import { VueContext} from 'vue-context';
-
 new Vue({
 	el: '#app',
-
-	components: {
-	    VueContext
-	},
 
 	data: {
 		navItems: [
@@ -19,18 +13,57 @@ new Vue({
 				name: 'Test Title',
 			},
 			{
-				divider: true,
-			},
-			{
 				url: 'https://google.com',
-				name: 'Google',
-				icon: 'fa fa-user',
+				name: 'Google External',
+				icon: 'mdi mdi-google-maps',
 				attributes: {
 					attrs: {
 						target: '_blank'
 					}
 				}
-			}
+			},
+            {
+                url: '#',
+                name: 'Pages',
+                icon: 'mdi mdi-google',
+                children: [
+                    {
+                        name: 'Profile',
+                        url: '/profile',
+                        children: [
+                            {
+                                name: 'Profile 2',
+                                url: '/lara-vue/testing/index.html'
+                            }
+                        ]
+                    },
+                    {
+                        name: 'Profile 2',
+                        url: '/profile',
+                        children: [
+                            {
+                                name: 'Profile 2',
+                                url: '/profile'
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                url: '#',
+                name: 'Pages 2',
+                icon: 'mdi mdi-google',
+                children: [
+                    {
+                        name: 'Profile 2',
+                        url: '/profile'
+                    },
+                    {
+                        name: 'Profile 2',
+                        url: '/profile'
+                    }
+                ]
+            }
 		],
 		headerFixed: true,
         selected: 'b',
@@ -42,6 +75,26 @@ new Vue({
             { value: 'd', text: 'This one is disabled', disabled: true }
         ],
 	},
+
+    mounted () {
+        for (let i = 0; i < 15; i++) {
+            let item = {
+                icon: 'mdi mdi-layers',
+                url: '/profile',
+                name: `Page ${i + 1}`,
+                children: []
+            };
+
+            for (let x = 0; x < i + 1; x++) {
+                item.children.push({
+                    url: '/profile',
+                    name: `Inner page ${x + 1}`
+                });
+            }
+
+            this.navItems.push(item);
+        }
+    },
 
 	methods: {
 
