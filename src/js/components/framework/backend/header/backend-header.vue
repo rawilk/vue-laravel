@@ -13,20 +13,40 @@
 				</div>
 
 				<div class="navbar-collapse">
+                    <!-- toggle and nav items -->
 					<ul class="navbar-nav mr-auto mt-md-0">
+                        <slot name="menu-left-before"></slot>
 						<!--<li class="nav-item">-->
 							<!--<a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark">-->
 								<!--t-->
 							<!--</a>-->
 						<!--</li>-->
-						<li class="nav-item">
+						<li class="nav-item" v-if="allowMiniSidebar">
 							<a class="nav-link sidebartoggler hidden-sm-down text-muted waves-effect waves-dark"
 							   @click.prevent="toggleMiniSidebar"
 							>
-								<i class="mdi mdi-menu"></i>
+								<i :class="sidebarToggleIcon"></i>
 							</a>
 						</li>
+
+                        <!-- mega menu -->
+                        <backend-header-dropdown dropdown-class="mega-dropdown" animation="scale-up-left"
+                                                 v-if="hasMegaMenu"
+                        >
+                            <template slot="button-content">
+                                <slot name="mega-menu-icon">
+                                    <i class="mdi mdi-view-grid"></i>
+                                </slot>
+                            </template>
+                            <slot name="mega-menu"></slot>
+                        </backend-header-dropdown>
+                        <slot name="menu-left"></slot>
 					</ul>
+
+                    <!-- right side menus -->
+                    <ul class="navbar-nav my-lg-0">
+                        <slot name="menu-right"></slot>
+                    </ul>
 				</div>
 			</nav>
 		</header>
@@ -44,10 +64,16 @@
 		name: 'backend-header',
 
 		props: {
-			allowMiniSidebar: {
+			/**
+             * Allow users to collapse and expand the sidebar navigation.
+             *
+             * @type {boolean}
+             */
+		    allowMiniSidebar: {
 			    type: Boolean,
 				default: true
 			},
+
 			/**
 			 * This is a unique key to use
 			 * for local storage for each app.
@@ -69,8 +95,29 @@
 			},
 		},
 
+        computed: {
+		    /**
+             * Determine if a mega menu is present.
+             *
+             * @returns {boolean}
+             */
+		    hasMegaMenu () {
+		        return !! this.$slots['mega-menu'];
+		    },
+
+		    /**
+             * Determine the icon that toggles the mini sidebar.
+             *
+             * @returns {string}
+             */
+            sidebarToggleIcon () {
+                return this.isMini ? 'mdi mdi-arrow-right' : 'mdi mdi-menu';
+            },
+        },
+
 		data () {
 		    return {
+		        isMini: false,
 		        sidebarKey: `${this.appKey}_lara_vue_mini_sidebar_state`
 		    };
 		},
@@ -91,8 +138,9 @@
 			 * Make sidebar mini if true in local storage.
 			 */
 			initMiniSidebar () {
-				const isMini = getItem(this.sidebarKey, false);
-				if (isMini) {
+				this.isMini = getItem(this.sidebarKey, false);
+
+				if (this.isMini) {
 					addClass(document.body, MINI_SIDEBAR_CLASS);
 				}
 			},
@@ -121,18 +169,21 @@
 					return false;
 				}
 
-		    	// Get current state of mini sidebar
-		        const isMini = getItem(this.sidebarKey, false);
-
-				const body = document.body;
-				isMini ? removeClass(body, MINI_SIDEBAR_CLASS) : addClass(body, MINI_SIDEBAR_CLASS);
-
-		        // Set new state of mini sidebar
-				setItem(this.sidebarKey, ! isMini);
+				// Update new state
+                this.isMini = ! this.isMini;
 		    },
 		},
 
 		watch: {
+		    isMini (isMini) {
+		        // Update the DOM
+                const body = document.body;
+                isMini ? addClass(body, MINI_SIDEBAR_CLASS) : removeClass(body, MINI_SIDEBAR_CLASS);
+
+                // Persist new state of mini sidebar to local storage
+                setItem(this.sidebarKey, isMini);
+		    },
+
 		    fixed (fixed, oldValue) {
 		        if (fixed !== oldValue) {
 		        	fixed ? addClass(document.body, FIXED_CSS_CLASS) : removeClass(document.body, FIXED_CSS_CLASS);

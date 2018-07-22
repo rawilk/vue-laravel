@@ -256,7 +256,7 @@ export default {
 				placement = AttachmentMap.BOTTOMEND;
 			}
 
-			const popperConfig = {
+			let popperConfig = {
 				placement,
 				modifiers: {
 					offset: {
@@ -273,6 +273,10 @@ export default {
 					boundariesElement: this.boundary
 				};
 			}
+
+			if (this.animation) {
+			    popperConfig.modifiers.computeStyle = { gpuAcceleration: false };
+            }
 
 			return assign(popperConfig, this.popperOpts || {});
 		},

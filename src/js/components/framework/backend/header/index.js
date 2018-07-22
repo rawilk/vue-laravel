@@ -1,8 +1,10 @@
 import BackendHeader from './backend-header';
+import BackendHeaderDropdown from './backend-header-dropdown';
 import { registerComponents, vueUse } from '../../../../utils/plugins';
 
 const components = {
-	BackendHeader
+	BackendHeader,
+    BackendHeaderDropdown
 };
 
 const VuePlugin = {

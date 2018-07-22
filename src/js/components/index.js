@@ -36,6 +36,7 @@ import Tooltip from './tooltip';
 
 // framework components
 import BackendApp from './framework/backend/app';
+import BackendFooter from './framework/backend/footer';
 import BackendHeader from './framework/backend/header';
 import BackendSidebar from  './framework/backend/sidebar';
 
@@ -78,6 +79,7 @@ export {
 
 	// framework components
 	BackendApp,
+    BackendFooter,
 	BackendHeader,
-	BackendSidebar,
+	BackendSidebar
 };

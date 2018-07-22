@@ -1,5 +1,6 @@
 import { mergeData } from 'vue-functional-data-merge';
 import { isObject } from '../../../../utils/typeChecks';
+import { isUrlActive } from '../../../../utils/url';
 
 export default {
 	functional: true,
@@ -13,6 +14,10 @@ export default {
 		    type: String,
 			default: ''
 		},
+        isChild: {
+		    type: Boolean,
+            default: false
+        },
 	    name: {
 	        type: String,
 		    default: ''
@@ -24,47 +29,37 @@ export default {
 	},
 
 	render (h, { props }) {
-		const isExternalLink = props.url.substring(0, 4) === 'http';
-		const attributes = isObject(props.attributes) ? props.attributes: {};
+		const attributes = isObject(props.attributes) ? props.attributes : {};
 
+	    // Determine if this link is the current page.
+        const active = isUrlActive(props.url);
 
-		// link children
-		let linkChildren = [];
+		let icon = h(false);
 		if (props.icon && props.icon.length) {
-			linkChildren.push(h(
-				'i',
-				{ staticClass: props.icon }
-			));
-		}
+		    icon = h(
+		       'i',
+                { staticClass: props.icon }
+            );
+        }
 
-		linkChildren.push(h(
-			'span',
-			{
-				staticClass: 'hide-menu',
-				domProps: { innerText: props.name }
-			}
-		));
-
-		let link = h(false);
-		if (isExternalLink) {
-			link = h(
-				'a',
-				mergeData(attributes, {
-					staticClass: 'nav-link',
-					attrs: {
-						href: props.url,
-					}
-				}),
-				linkChildren
-			);
-		}
-
-		return link;
+        const navText = h(
+            'span',
+            { staticClass: props.isChild ? null : 'hide-menu' },
+            props.name
+        );
 
 		return h(
-			'span',
-			{},
-			[link]
-		);
+		    'a',
+            mergeData(attributes, {
+                staticClass: 'nav-link',
+                class: {
+                    'active': active
+                },
+                attrs: {
+                    href: props.url
+                }
+            }),
+            [icon, navText]
+        );
 	}
 };
