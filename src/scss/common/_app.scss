@@ -1155,9 +1155,11 @@ $social-btns: (
 	width: 100%;
 
 	.dropdown-menu {
-		width: 100%;
+		width: 100.1%;
 		padding: 30px;
 		margin-top: 0;
+        border-radius: 0;
+        left: 0 !important;
 	}
 
 	ul {
