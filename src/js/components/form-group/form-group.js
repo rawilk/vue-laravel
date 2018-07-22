@@ -179,7 +179,7 @@ export default {
 		 *
 		 * @returns {string|null}
 		 */
-		invalidFeedback () {
+		invalidFeedbackId () {
 		    return this.hasInvalidFeedback ? this.safeId('_Lara_feedback_invalid_') : null;
 		},
 
