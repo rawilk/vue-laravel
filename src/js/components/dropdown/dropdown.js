@@ -8,6 +8,10 @@ export default {
 	components: { bButton },
 
 	props: {
+	    animation: {
+	        type: String,
+            default: null
+	    },
 		boundary: {
 			// String: `scrollParent`, `window` or `viewport`
 			// Object: HTML Element reference
@@ -34,6 +38,10 @@ export default {
 			type: Boolean,
 			default: false
 		},
+        tag: {
+            type: String,
+            default: 'div'
+        },
 		toggleClass: {
 			type: [String, Array],
 			default: null
@@ -85,6 +93,7 @@ export default {
 					'dropdown-menu-right': this.right,
 					'show': this.visible
 				},
+                this.animation,
 				this.menuClass
 			];
 		},
@@ -174,7 +183,7 @@ export default {
 		);
 
 		return h(
-			'div',
+			this.tag,
 			{
 				attrs: { id: this.safeId() },
 				class: this.dropdownClasses
