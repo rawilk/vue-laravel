@@ -10,10 +10,26 @@ const btnProps = {
 		type: Boolean,
 		default: false
 	},
+    busy: {
+        type: Boolean,
+        default: false
+    },
 	disabled: {
 		type: Boolean,
 		default: false
 	},
+    loaderAnimationDuration: {
+        type: Number,
+        default: 3500
+    },
+    loaderColor: {
+        type: String,
+        default: '#fff'
+    },
+    loaderSize: {
+        type: Number,
+        default: 20
+    },
 	size: {
 		type: String,
 		default: null
@@ -67,13 +83,13 @@ export default {
 
 	props,
 
-	render (h, { props, data, listeners, children }) {
+	render (h, { props, data, listeners, slots }) {
 		const isLink = Boolean(props.href || props.to);
 		const isToggle = typeof props.pressed === 'boolean';
 
 		const on = {
 			click (event) {
-				if (props.disabled && event instanceof Event) {
+				if ((props.disabled || props.busy) && event instanceof Event) {
 					event.stopPropagation();
 					event.preventDefault();
 				} else if (isToggle) {
@@ -102,14 +118,15 @@ export default {
 					'btn-block': props.block && ! props.circle,
 					'btn-rounded': props.rounded,
 					'btn-circle': props.circle && ! props.rounded,
-					disabled: props.disabled,
-					active: props.pressed
+					disabled: props.disabled || props.busy,
+					active: props.pressed,
+                    busy: props.busy,
 				}
 			],
 			props: isLink ? pluckProps(linkPropKeys, props) : null,
 			attrs: {
 				type: isLink ? null : props.type,
-				disabled: isLink ? null : props.disabled,
+				disabled: isLink ? null : props.disabled || props.busy,
 				// Data attribute not used for js logic,
 				// but only for BS4 style selectors.
 				'data-toggle': isToggle ? 'button' : null,
@@ -125,6 +142,20 @@ export default {
 			on
 		};
 
-		return h(isLink ? Link : 'button', mergeData(data, componentData), children);
+		let content = [slots().default];
+		if (props.busy) {
+		    content = [h(
+		        'b-loader',
+                {
+                    props: {
+                        animationDuration: props.loaderAnimationDuration,
+                        color: props.loaderColor,
+                        size: props.loaderSize
+                    }
+                }
+            )];
+        }
+
+		return h(isLink ? Link : 'button', mergeData(data, componentData), content);
 	}
 };

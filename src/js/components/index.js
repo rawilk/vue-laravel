@@ -23,6 +23,7 @@ import InputGroup from './input-group';
 import Layout from './layout';
 import Link from './link';
 import ListGroup from './list-group';
+import Loader from './loader';
 import Media from './media';
 import Modal from './modal';
 import Nav from './nav';
@@ -67,6 +68,7 @@ export {
 	Layout,
 	Link,
 	ListGroup,
+    Loader,
 	Media,
 	Modal,
 	Nav,
