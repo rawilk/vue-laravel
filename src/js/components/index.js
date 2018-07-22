@@ -1,5 +1,6 @@
 import Affix from './affix';
 import Alert from './alert';
+import BackToTop from './back-to-top';
 import Badge from './badge';
 import Button from './button';
 import ButtonGroup from './button-group';
@@ -43,6 +44,7 @@ import BackendSidebar from  './framework/backend/sidebar';
 export {
 	Affix,
 	Alert,
+    BackToTop,
 	Badge,
 	Button,
 	ButtonGroup,

@@ -12,6 +12,8 @@
 						<slot name="pageHeader"></slot>
 						<slot></slot>
 					</b-container>
+
+                    <back-to-top></back-to-top>
 				</div>
 
 				<slot name="footer"></slot>
