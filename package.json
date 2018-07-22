@@ -37,11 +37,11 @@
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "lodash.startcase": "^4.4.0",
+    "lodash.throttle": "^4.1.1",
     "popper.js": "^1.14.3",
     "qs": "^6.5.2",
     "recursive-iterator": "^3.3.0",
     "vue": "^2.5.16",
-    "vue-context": "^3.0.1",
     "vue-functional-data-merge": "^2.0.6",
     "vue-multiselect": "^2.1.0",
     "vue-scrolly": "^0.9.3"
