@@ -13,7 +13,7 @@
 						<slot></slot>
 					</b-container>
 
-                    <back-to-top></back-to-top>
+                    <back-to-top v-if="backToTop"></back-to-top>
 				</div>
 
 				<slot name="footer"></slot>
@@ -25,6 +25,13 @@
 
 <script>
 	export default {
-		name: 'backend-app'
+		name: 'backend-app',
+
+        props: {
+            backToTop: {
+                type: Boolean,
+                default: true
+            }
+        }
 	};
 </script>
