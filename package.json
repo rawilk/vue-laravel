@@ -38,6 +38,7 @@
     "lodash.get": "^4.4.2",
     "lodash.startcase": "^4.4.0",
     "lodash.throttle": "^4.1.1",
+    "noty": "^3.2.0-beta",
     "popper.js": "^1.14.3",
     "qs": "^6.5.2",
     "recursive-iterator": "^3.3.0",

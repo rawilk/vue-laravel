@@ -1,8 +1,9 @@
 import Errors from './errors';
+import Ajax from './ajax';
+import { Notify } from './notification';
 import cloneDeep from 'lodash.clonedeep';
 import { isObject } from '../typeChecks';
 import { isArray } from '../array';
-import Ajax from './ajax';
 import { hasFile, toFormData } from '../files';
 
 /**
@@ -82,6 +83,11 @@ export default class Form {
         this.endpoint = null;
         this.destroyOnReset = false;
         this.stringify = false;
+        this.notifySuccess = true;
+        this.notifyError = true;
+        this.successMessageKey = 'message';
+        this.errorMessageKey = 'reason';
+        this.notificationOptions = {};
 
         for (let property in data) {
             if (property in this) {
@@ -129,6 +135,40 @@ export default class Form {
      */
     clearAppendedData () {
         this.appends = {};
+
+        return this;
+    }
+
+    /**
+     * Customize the notification.
+     *
+     * @param {object} options
+     * @returns {Form}
+     */
+    customizeNotification (options) {
+        this.notificationOptions = options;
+
+        return this;
+    }
+
+    /**
+     * Prevent a notification from being shown when an error happens.
+     *
+     * @returns {Form}
+     */
+    hideErrorNotification () {
+        this.notifyError = false;
+
+        return this;
+    }
+
+    /**
+     * Hide the success notification on a successful form submission.
+     *
+     * @returns {Form}
+     */
+    hideSuccessNotification () {
+        this.notifySuccess = false;
 
         return this;
     }
@@ -326,7 +366,9 @@ export default class Form {
         return new Promise((resolve, reject) => {
             this.ajax[requestType](endpoint, data)
                 .then(data => {
-                    // TODO: show notification of success if set
+                    if (this.notifySuccess && this.successMessageKey in data && data[this.successMessageKey].toString().length) {
+                        this.notify(data[this.successMessageKey], 'success');
+                    }
 
                     resolve(data);
                 })
@@ -335,12 +377,39 @@ export default class Form {
                         // Validation errors have been returned from Laravel
                         this.errors.record(error.data.errors);
                     } else {
-                        // TODO: show notification of error
+                        const message = this.getErrorMessage(error);
+
+                        // Notify if error was returned
+                        message && this.notify(message, 'error');
                     }
 
                     reject(error);
                 })
                 .then(() => this.busy = false);
         });
+    }
+
+    /**
+     * Notify end-user of success or error.
+     *
+     * @param {string} message
+     * @param {string} type
+     */
+    notify (message, type) {
+        new Notify(this.notificationOptions)[type](message);
+    }
+
+    /**
+     * Get an appropriate error message.
+     *
+     * @param {object} error
+     * @returns {null|string}
+     */
+    getErrorMessage (error) {
+        if (! this.notifyError) {
+            return null;
+        }
+
+        return Ajax.getErrorMessage(error, this.errorMessageKey);
     }
 }

@@ -1,6 +1,7 @@
 import * as components from './components';
 import * as directives from './directives';
 import * as mixins from './mixins/global';
+import * as plugins from './plugins';
 import filters from './filters/filters';
 import { vueUse } from './utils/plugins';
 
@@ -26,6 +27,11 @@ const VuePlugin = {
 		for (let plugin in mixins) {
 			Vue.use(mixins[plugin]);
 		}
+
+		// Register global plugins
+        for (let plugin in plugins) {
+		    Vue.use(plugins[plugin]);
+        }
 
 		// Register global filters
 		Vue.use(filters);
