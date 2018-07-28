@@ -126,4 +126,29 @@ export default class Ajax {
                .catch(error => reject(Ajax.normalizeErrorResponse(error)));
         });
     }
+
+    /**
+     * Get an appropriate error message.
+     *
+     * @param {object} error
+     * @param {string} errorMessageKey
+     * @returns {null|string}
+     */
+    static getErrorMessage (error, errorMessageKey = 'reason') {
+        if (error.status >= 500) {
+            return 'An unexpected error has occurred.';
+        }
+
+        if (typeof error.data !== 'object') {
+            return error.status === 404
+                ? 'The resource you are looking for could not be found.'
+                : null;
+        }
+
+        if (errorMessageKey in error.data && error.data[errorMessageKey].toString().length) {
+            return error.data[errorMessageKey];
+        }
+
+        return null;
+    }
 }
