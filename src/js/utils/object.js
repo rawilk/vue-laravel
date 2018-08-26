@@ -1,6 +1,6 @@
 /**
  * Aliasing Object[method] allows the minifier to shorten methods to a single character variable,
- * as well as giving LaraVue a chance to inject polyfills.
+ * as well as giving VueLaravel a chance to inject polyfills.
  * As long as we avoid
  * - import * as Object from "utils/object"
  * all unused exports should be removed by tree-shaking.

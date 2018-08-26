@@ -1,5 +1,5 @@
 {
-  "name": "lara-vue",
+  "name": "vue-laravel",
   "version": "0.1.0",
   "description": "A JavaScript framework built for Laravel with VueJS",
   "keywords": [
@@ -20,7 +20,7 @@
   "author": "Randall Wilk",
   "copyright": "Copyright 2018 Randall Wilk",
   "license": "MIT",
-  "main": "dist/js/lara-vue.js",
+  "main": "dist/js/vue-laravel.js",
   "devDependencies": {
     "autoprefixer": "^8.6.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",

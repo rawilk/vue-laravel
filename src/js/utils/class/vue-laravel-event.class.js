@@ -1,6 +1,6 @@
 import { assign, defineProperty, defineProperties, readonlyDescriptor } from '../object';
 
-export default class LaraVueEvent {
+export default class VueLaravelEvent {
 	constructor (type, eventInit = {}) {
 		// Start by emulating native Event constructor.
 		if (! type) {
@@ -11,7 +11,7 @@ export default class LaraVueEvent {
 
 		// Assign defaults first, the eventInit,
 		// and the type last so it can't be overwritten.
-		assign(this, LaraVueEvent.defaults(), eventInit, { type });
+		assign(this, VueLaravelEvent.defaults(), eventInit, { type });
 
 		// Freeze some props as readonly, but leave them enumerable.
 		defineProperties(this, {

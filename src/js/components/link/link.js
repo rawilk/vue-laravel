@@ -3,7 +3,7 @@ import { arrayIncludes, concat } from '../../utils/array';
 import { mergeData } from 'vue-functional-data-merge';
 
 /**
- * The Link component is used in many other LaraVue components.
+ * The Link component is used in many other VueLaravel components.
  * As such, sharing its props makes supporting all its features easier.
  * However, some components need to modify the defaults for their own purpose.
  * Prefer sharing a fresh copy of the props to ensure mutations

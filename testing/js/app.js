@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import LaraVue from  '../../src/js/index';
+import VueLaravel from  '../../src/js/index';
 
-Vue.use(LaraVue);
+Vue.use(VueLaravel);
 
 import Auth1 from '../../src/js/components/framework/frontend/auth/auth-1';
 
@@ -39,7 +39,7 @@ new Vue({
                         children: [
                             {
                                 name: 'Profile 2',
-                                url: '/lara-vue/testing/index.html'
+                                url: '/vue-laravel/testing/index.html'
                             }
                         ]
                     },

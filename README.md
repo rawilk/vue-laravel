@@ -1,6 +1,6 @@
-# lara-vue
+# vue-laravel
 
-lara-vue is a Javascript framework geared towards the Laravel framework, but it
+vue-laravel is a Javascript framework geared towards the Laravel framework, but it
 can certainly be used in other frameworks or standalone as well.
 
 ## Note

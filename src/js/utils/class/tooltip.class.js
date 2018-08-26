@@ -1,5 +1,5 @@
 import Popper from 'popper.js';
-import LaraVueEvent from './lara-vue-event.class';
+import VueLaravelEvent from './vue-laravel-event.class';
 import { assign } from '../object';
 import { arrayFrom } from '../array';
 import {
@@ -248,8 +248,8 @@ class ToolTip {
 	 * Enable this instance.
 	 */
 	enable () {
-		// Create a non-cancelable LaraVueEvent
-		const enabledEvent = new LaraVueEvent('enabled', {
+		// Create a non-cancelable VueLaravelEvent
+		const enabledEvent = new VueLaravelEvent('enabled', {
 			cancelable: false,
 			target: this.$element,
 			relatedTarget: null
@@ -264,7 +264,7 @@ class ToolTip {
 	 */
 	disable () {
 		// Create a non-cancelable BvEvent
-		const disabledEvent = new LaraVueEvent('disabled', {
+		const disabledEvent = new VueLaravelEvent('disabled', {
 			cancelable: false,
 			target: this.$element,
 			relatedTarget: null
@@ -336,8 +336,8 @@ class ToolTip {
 		const attachment = this.constructor.getAttachment(placement);
 		this.addAttachmentClass(attachment);
 
-		// Create a cancelable LaraVueEvent
-		const showEvent = new LaraVueEvent('show', {
+		// Create a cancelable VueLaravelEvent
+		const showEvent = new VueLaravelEvent('show', {
 			cancelable: true,
 			target: this.$element,
 			relatedTarget: tip
@@ -373,8 +373,8 @@ class ToolTip {
 				this.leave(null);
 			}
 
-			// Create a non-cancelable LaraVueEvent
-			const shownEvent = new LaraVueEvent('shown', {
+			// Create a non-cancelable VueLaravelEvent
+			const shownEvent = new VueLaravelEvent('shown', {
 				cancelable: false,
 				target: this.$element,
 				relatedTarget: tip
@@ -474,8 +474,8 @@ class ToolTip {
 			return;
 		}
 
-		// Create a cancelable LaraVueEvent
-		const hideEvent = new LaraVueEvent('hide', {
+		// Create a cancelable VueLaravelEvent
+		const hideEvent = new VueLaravelEvent('hide', {
 			// We disable cancelling if force is true
 			cancelable: ! force,
 			target: this.$element,
@@ -503,8 +503,8 @@ class ToolTip {
 				callback();
 			}
 
-			// Create a non-cancelable LaraVueEvent
-			const hiddenEvent = new LaraVueEvent('hidden', {
+			// Create a non-cancelable VueLaravelEvent
+			const hiddenEvent = new VueLaravelEvent('hidden', {
 				cancelable: false,
 				target: this.$element,
 				relatedTarget: null
@@ -537,7 +537,7 @@ class ToolTip {
 	/**
 	 * Emit the given event.
 	 *
-	 * @param {LaraVueEvent} event
+	 * @param {VueLaravelEvent} event
 	 */
 	emitEvent (event) {
 		const eventName = event.type;

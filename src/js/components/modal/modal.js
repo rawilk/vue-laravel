@@ -5,7 +5,7 @@ import listenOnRootMixin from '../../mixins/listenOnRoot';
 import observeDom from '../../utils/observe-dom';
 import { warn } from '../../utils/warn';
 import KeyCodes from '../../utils/keyCodes';
-import LaraVueEvent from '../../utils/class/lara-vue-event.class';
+import VueLaravelEvent from '../../utils/class/vue-laravel-event.class';
 
 import {
 	isVisible,
@@ -578,7 +578,7 @@ export default {
 				return;
 			}
 
-			const hideEvent = new LaraVueEvent('hide', {
+			const hideEvent = new VueLaravelEvent('hide', {
 				cancelable: true,
 				vueTarget: this,
 				target: this.$refs.modal,
@@ -627,7 +627,7 @@ export default {
 				return;
 			}
 
-			const showEvent = new LaraVueEvent('show', {
+			const showEvent = new VueLaravelEvent('show', {
 				cancelable: true,
 				vueTarget: this,
 				target: this.$refs.modal,
@@ -699,7 +699,7 @@ export default {
 
 			this.$nextTick(() => {
 				this.focusFirst();
-				const showEvent = new LaraVueEvent('shown', {
+				const showEvent = new VueLaravelEvent('shown', {
 					cancelable: false,
 					vueTarget: this,
 					target: this.$refs.modal,
@@ -741,7 +741,7 @@ export default {
 				this.is_hidden = this.lazy || false;
 				this.returnFocusTo();
 
-				const hiddenEvent = new LaraVueEvent('hidden', {
+				const hiddenEvent = new VueLaravelEvent('hidden', {
 					cancelable: false,
 					vueTarget: this,
 					target: this.lazy ? null : this.$refs.modal,
@@ -755,7 +755,7 @@ export default {
 		/**
 		 * Emit the given event.
 		 *
-		 * @param {LaraVueEvent} laraVueEvent
+		 * @param {VueLaravelEvent} laraVueEvent
 		 */
 		emitEvent (laraVueEvent) {
 			const type = laraVueEvent.type;
