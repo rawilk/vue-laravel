@@ -19,6 +19,10 @@
   },
   "author": "Randall Wilk",
   "copyright": "Copyright 2018 Randall Wilk",
+  "repository": {
+      "type": "git",
+      "url": "git+https://github.com/rawilk/vue-laravel.git"
+  },
   "license": "MIT",
   "main": "dist/js/vue-laravel.js",
   "devDependencies": {
