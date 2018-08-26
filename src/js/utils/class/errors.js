@@ -19,7 +19,9 @@ export default class Errors {
      */
     clear (field) {
         if (field) {
-            return delete this.errors[field];
+            this.errors = Object.keys(this.errors).filter(key => key !== field);
+
+            return;
         }
 
         this.errors = {};
