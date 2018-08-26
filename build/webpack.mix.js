@@ -13,6 +13,7 @@ mix
 	// styles
 	.sass('src/scss/backend/index.scss', 'css/backend-' + name + '.css')
 	.sass('src/scss/vendor.scss', 'css/' + name + '-vendor.css')
+    .sass('src/scss/auth/auth.scss', 'css')
 
 	// colors
 	// .sass('src/scss/colors/blue-dark.scss', 'css/colors/blue-dark.css')
