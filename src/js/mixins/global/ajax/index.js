@@ -1,13 +1,13 @@
 import ajax from './ajax';
 import { registerMixins, vueUse } from '../../../utils/plugins';
 
-const directives = {
+const mixins = {
 	ajax
 };
 
 const VuePlugin = {
 	install (Vue) {
-		registerMixins(Vue, directives);
+		registerMixins(Vue, mixins);
 	}
 };
 
