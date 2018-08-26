@@ -2,6 +2,8 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Test App Page</title>
 		<link rel="stylesheet" href="../dist/css/lara-vue-vendor.css">
 		<link rel="stylesheet" href="../dist/css/backend-lara-vue.css">
@@ -18,6 +20,13 @@
 				</backend-sidebar>
 
 				<!-- content -->
+                <page-header fixed>
+                    Foobar
+                    <template slot="breadcrumbs">
+                        <li class="breadcrumb-item">Foo</li>
+                    </template>
+                </page-header>
+
 				<b-card class="mt-20">
                     <!--<b-select v-model="selected" :options="options" class="mb-3" multiple></b-select>-->
                     <div>Selected: <strong>{{ selected }}</strong></div>

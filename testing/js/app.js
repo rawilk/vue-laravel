@@ -3,8 +3,14 @@ import LaraVue from  '../../src/js/index';
 
 Vue.use(LaraVue);
 
+import Auth1 from '../../src/js/components/framework/frontend/auth/auth-1';
+
 new Vue({
 	el: '#app',
+
+    components: {
+        Auth1
+    },
 
 	data: {
 		navItems: [
