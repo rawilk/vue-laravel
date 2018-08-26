@@ -13,6 +13,8 @@ const SELECTOR = 'input:not(:disabled),textarea:not(:disabled),select:not(:disab
 export default {
 	mixins: [idMixin, formValidationMixin],
 
+    inject: ['$validator', 'form'],
+
 	components: {
 	    bFormRow,
 		bFormText,
@@ -294,7 +296,7 @@ export default {
 				'b-form-invalid-feedback',
 				{
 					props: {
-						id: t.invalidFeedback,
+						id: t.invalidFeedbackId,
 						forceShow: t.computedState === false
 					},
 					attrs: {

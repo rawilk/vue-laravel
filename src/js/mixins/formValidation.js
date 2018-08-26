@@ -1,12 +1,12 @@
+import Form from '../utils/class/form';
+
 export default {
 	props: {
 	    field: String,
 		serverField: String,
 		serverErrors: {
+	        type: Object,
 			default: null
-		},
-		validation: {
-		    default: null
 		}
 	},
 
@@ -33,11 +33,9 @@ export default {
 		 * @returns {boolean}
 		 */
 		hasClientError () {
-		    if (this.hasValidation) {
-		    	return this.validation.hasError(this.localField);
-		    }
-
-		    return false;
+		    return this.hasValidation
+                ? this.$validator.errors.has(this.localField)
+                : false;
 		},
 
 		/**
@@ -47,7 +45,12 @@ export default {
 		 */
 		hasServerError () {
 		    if (this.hasServerValidation) {
-		    	return this.serverErrors.hasOwnProperty(this.localServerField);
+		        // Server errors passed in have higher precedence over injected form
+                if (!! this.serverErrors && Object.keys(this.serverErrors).length) {
+                    return this.serverErrors.hasOwnProperty(this.localServerField);
+                }
+
+                return this.form.errors.has(this.localServerField);
 		    }
 
 		    return false;
@@ -59,16 +62,16 @@ export default {
 		 * @returns {boolean}
 		 */
 		hasServerValidation () {
-		    return !! this.serverErrors;
+		    return this.form instanceof Form || !! this.serverErrors;
 		},
 
 		/**
-		 * Determine if the client side validation exists (using SimpleVueValidator)
+		 * Determine if the client side validation exists (using Vee-Validate)
 		 *
 		 * @returns {boolean}
 		 */
 		hasValidation () {
-		    return !! this.validation;
+		    return !! this.$validator;
 		},
 
 		/**
@@ -97,13 +100,17 @@ export default {
 		 */
 		validationError () {
 		    if (this.hasClientError) {
-		    	return this.validation.firstError(this.localField);
+		    	return this.$validator.errors.first(this.localField);
 		    }
 
 		    if (this.hasServerError) {
-		    	try {
-		    	    return this.serverErrors.errors[this.localServerField][0];
-		    	} catch (e) {}
+		        if (!! this.serverErrors && Object.keys(this.serverErrors).length) {
+		            if (this.serverErrors.errors.hasOwnProperty(this.localServerField)) {
+		                return this.serverErrors.errors[this.localServerField][0];
+                    }
+                }
+
+                return this.form.errors.get(this.localServerField);
 		    }
 
 		    return null;
@@ -115,10 +122,12 @@ export default {
 	    	try {
 	    	    let arr = this.localField.split('.');
 
-	    	    arr.shift();
+	    	    if (arr.length > 1) {
+                    arr.shift();
+                }
 
 	    	    this.localServerField = arr.join('.');
 	    	} catch (e) {}
 	    }
-	}
+	},
 };
