@@ -11,21 +11,24 @@ import { hasFile, toFormData } from '../files';
  */
 const initModel = Symbol('initModel');
 const mergeWithAppends = Symbol('mergeWithAppends');
-const setClassVariables = Symbol('setClassVariables');
+const setOptions = Symbol('setOptions');
 
 export default class Form {
     /**
      * Initialize the form.
      *
      * @param {object} model
-     * @param {object} data
+     * @param {object} options
      */
-    constructor (model, data = {}) {
+    constructor (model, options = {}) {
+        // Flag to let class know it is initialized
+        this.initialized = false;
+
         // Initialize the form's model
         this[initModel](model);
 
-        // Setup class variables
-        this[setClassVariables](data);
+        // Setup class options
+        this[setOptions](options);
 
         // Initialize the error bag
         this.errors = new Errors();
@@ -35,11 +38,30 @@ export default class Form {
     }
 
     /**
+     * Change the model the form is bound to.
+     *
+     * @param {object} model
+     * @param {object} options
+     */
+    newModel (model, options = {}) {
+        // Initialize the form's model
+        this[initModel](model, true);
+
+        // Setup class options
+        this[setOptions](options);
+    }
+
+    /**
      * Initialize the form's model.
      *
      * @param {object} model
+     * @param {boolean} destroyOriginal
      */
-    [initModel] (model) {
+    [initModel] (model, destroyOriginal = false) {
+        if (destroyOriginal) {
+            this.model = {};
+        }
+
         this.model = model;
 
         this.originalData = cloneDeep(model);
@@ -54,7 +76,7 @@ export default class Form {
      * @returns {object|FormData|string}
      */
     [mergeWithAppends] (data, transform) {
-        data = Object.assign(this.appends, data);
+        data = Object.assign({}, this.appends, data);
 
         if (transform) {
             if (hasFile(data)) {
@@ -72,28 +94,43 @@ export default class Form {
     }
 
     /**
-     * Set defaults for class variables.
+     * Set defaults for class options.
      *
-     * @param {object} data
+     * @param {object} options
      */
-    [setClassVariables] (data = {}) {
-        this.appends = {};
-        this.attributes = null;
-        this.busy = false;
-        this.endpoint = null;
-        this.destroyOnReset = false;
-        this.stringify = false;
-        this.notifySuccess = true;
-        this.notifyError = true;
-        this.successMessageKey = 'message';
-        this.errorMessageKey = 'reason';
-        this.notificationOptions = {};
+    [setOptions] (options = {}) {
+        if (! this.initialized) {
+            this.appends = {};
+            this.attributes = null;
+            this.busy = false;
+            this.endpoint = null;
+            this.destroyOnReset = false;
+            this.stringify = false;
+            this.notifySuccess = true;
+            this.notifyError = true;
+            this.successMessageKey = 'message';
+            this.errorMessageKey = 'reason';
+            this.notificationOptions = {};
 
-        for (let property in data) {
-            if (property in this) {
-                this[property] = data[property];
-            }
+            this.initialized = true;
         }
+
+        this.updateOptions(options);
+    }
+
+    /**
+     * Update the given options.
+     * 
+     * @param {object} options
+     */
+    updateOptions (options) {
+        const noUpdateOptions = ['initialized'];
+
+        Object.keys(options).forEach(option => {
+            if (option in this && ! noUpdateOptions.includes(option)) {
+                this[option] = options[option];
+            }
+        });
     }
 
     /**
@@ -249,7 +286,7 @@ export default class Form {
      * @param {string} endpoint
      * @returns {Form}
      */
-    setEndpoint (endpoint) {
+    submitTo (endpoint) {
         this.endpoint = endpoint;
 
         return this;
