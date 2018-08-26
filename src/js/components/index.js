@@ -41,6 +41,7 @@ import BackendApp from './framework/backend/app';
 import BackendFooter from './framework/backend/footer';
 import BackendHeader from './framework/backend/header';
 import BackendSidebar from  './framework/backend/sidebar';
+import PageHeader from './framework/backend/page-header';
 
 export {
 	Affix,
@@ -85,5 +86,6 @@ export {
 	BackendApp,
     BackendFooter,
 	BackendHeader,
-	BackendSidebar
+	BackendSidebar,
+    PageHeader
 };

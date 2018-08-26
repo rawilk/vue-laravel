@@ -313,6 +313,14 @@ export const position = el => {
  */
 export const reflow = el => isElement(el) && el.offsetHeight;
 
+export const getElHeight = el => {
+    try {
+        return select(el).offsetHeight;
+    } catch (e) {
+        return 0;
+    }
+};
+
 /**
  * Remove an attribute from the given element.
  *

@@ -275,6 +275,8 @@
 		padding: 0;
 		background: transparent;
 		font-size: 14px;
+        margin-bottom: 0;
+        margin-top: 5px;
 
 		li {
 			margin-top: 0;
@@ -282,10 +284,10 @@
 		}
 
 		.breadcrumb-item + .breadcrumb-item:before {
-			content: "\e649";
-			font-family: themify;
+			content: "\F142";
+			font-family: "Material Design Icons";
 			color: $light-text;
-			font-size: 11px;
+			font-size: 13px;
 		}
 
 		.breadcrumb-item.active {
