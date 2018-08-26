@@ -1,0 +1,60 @@
+#auth-1 {
+    display: flex;
+    justify-content: space-between;
+
+    .auth-left {
+        flex: 1 auto;
+    }
+
+    .card.auth-style-1 {
+        min-height: 100vh;
+        border-radius: 0;
+        margin-bottom: 0;
+        width: 700px;
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 9rem;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .auth-form-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            flex: 1;
+        }
+
+        .auth-form-footer {
+            width: 100%;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 3rem;
+            width: 100%;
+        }
+    }
+
+    .login-title {
+        font-size: 1.5rem;
+        margin-bottom: .5rem;
+        font-family: inherit;
+        font-weight: 500;
+        line-height: 1.2;
+        color: inherit;
+    }
+}

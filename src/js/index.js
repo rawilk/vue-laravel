@@ -3,6 +3,7 @@ import * as directives from './directives';
 import * as mixins from './mixins/global';
 import * as plugins from './plugins';
 import filters from './filters/filters';
+import VeeValidate from 'vee-validate'
 import { vueUse } from './utils/plugins';
 
 const VuePlugin = {
@@ -35,6 +36,13 @@ const VuePlugin = {
 
 		// Register global filters
 		Vue.use(filters);
+
+		// Register validation object
+        Vue.use(VeeValidate, {
+            inject: false,
+            errorBagName: 'validationErrors',
+            events: 'change|blur'
+        });
 	}
 };
 
