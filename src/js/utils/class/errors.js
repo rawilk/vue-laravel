@@ -17,7 +17,7 @@ export default class Errors {
      *
      * @param {string|null} field
      */
-    clear (field) {
+    clear (field = null) {
         if (field) {
             this.errors = Object.keys(this.errors).filter(key => key !== field);
 
