@@ -1,6 +1,6 @@
 {
   "name": "vue-laravel",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A JavaScript framework built for Laravel with VueJS",
   "keywords": [
     "Vue",
@@ -20,8 +20,8 @@
   "author": "Randall Wilk",
   "copyright": "Copyright 2018 Randall Wilk",
   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/rawilk/vue-laravel.git"
+    "type": "git",
+    "url": "git+https://github.com/rawilk/vue-laravel.git"
   },
   "license": "MIT",
   "main": "dist/js/vue-laravel.js",
