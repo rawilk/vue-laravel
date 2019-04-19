@@ -1,3 +1,7 @@
+# Package Abandoned
+
+This package was experiemental and is no longer maintained. I have no intention of making it work or doing any more work on it.
+
 # vue-laravel
 
 vue-laravel is a Javascript framework geared towards the Laravel framework, but it
